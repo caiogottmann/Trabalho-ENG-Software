@@ -10,7 +10,13 @@ Blog tem como objetivo adivulgacao de experiencias e aprendizados das ferramenta
 
 
 ## TECNOLOGIAS UTILIZADAS
+# Front-end:
 - Vue.js - Versão 3.0
+- HTML5
+- JS
+- CSS3
+- SCSS
+# Back-end:
 - Node.js - Versão 12.20.1
 - Express.js Versão 4.17.1
 - Mongodb - Versão 4.2.8
