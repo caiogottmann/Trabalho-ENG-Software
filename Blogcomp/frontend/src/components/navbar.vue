@@ -2,8 +2,8 @@
   <div>
     <!-- Image and text -->
     <b-navbar id="navbar">
-      <b-navbar-brand href="#">
-        <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="Kitten">
+      <b-navbar-brand href="#" id="brand_minha">
+        <img src="@/assets/logo.png" id="logo" alt="Logo">
         BootstrapVue
       </b-navbar-brand>
       <b-navbar-nav>
@@ -24,9 +24,23 @@ export default {
 <style lang="scss" scoped>
 #navbar{
   background-color: #1793A6;
+  display: flex;
+  justify-content: space-between;
 }
 
-#navbar >>> .nav-item{
+#navbar ::v-deep .nav-link{
   color: #fdfdfd;
+  margin-right: 3vw;
+}
+
+#navbar ::v-deep .navbar-brand{
+  color: #fdfdfd;
+}
+
+#brand_minha{
+  margin-left: 3vw;
+}
+#logo{
+  margin-right: 1vw;
 }
 </style>
