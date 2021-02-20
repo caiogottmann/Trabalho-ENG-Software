@@ -8,7 +8,7 @@
       </b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item href="#">Post</b-nav-item>
-        <b-nav-item href="#">Cadastrar e-mail</b-nav-item>
+        <b-nav-item href="/cadastrarEmail">Cadastrar e-mail</b-nav-item>
         <b-nav-item href="#">Contato</b-nav-item>
       </b-navbar-nav>
     </b-navbar>

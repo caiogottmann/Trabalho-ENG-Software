@@ -1,5 +1,8 @@
 <template>
-  <navbar />
+  <div>
+    <navbar />
+    Cadastraremail
+  </div>
 </template>
 
 <script>

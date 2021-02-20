@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import cadastrarEmail from "../views/cadastrarEmail.vue";
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,12 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+
+  {
+    path: "/cadastrarEmail",
+    name: "cadastrarEmail",
+    component: cadastrarEmail
   },
   {
     path: "/about",

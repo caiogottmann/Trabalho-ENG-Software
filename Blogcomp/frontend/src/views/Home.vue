@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <cadastrar-email />
+    <navbar />
+    Home
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import CadastrarEmail from './cadastrarEmail.vue';
+import Navbar from '../components/navbar.vue';
 
 export default {
   name: "Home",
   components: {
-    CadastrarEmail
+    Navbar
   }
 };
 </script>
