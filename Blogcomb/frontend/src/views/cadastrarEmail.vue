@@ -5,8 +5,11 @@
       <div id="formulario">
         <h1 id="titulo">CADASTRE SEU E-MAIL</h1>
         <form id="forms">
-          <questao titulo="Nome:" nomeInput="nome" />
-          <questao class="espaco" titulo="Email:" nomeInput="nome" :inalteravel="true"/>
+          <questao titulo="Nome:" nomeInput="nome" expRegular="[A-Za-z]([A-Za-z]|[\b])*" inputPlaceHolder="Fulano de Tal" :requerido="true"/>
+          <questao class="espaco" titulo="Email:" nomeInput="nome" expRegular="[\w|.]*@[\w|.]*(.[a-zA-Z]*)+" :requerido="true" inputPlaceHolder="exem.plo1@exem.com"/>
+          <div id="envoltaBut">
+            <input type="submit" id="botao" value="Enviar"/>
+          </div>
         </form>
       </div>
     </div>
@@ -20,7 +23,7 @@ export default {
   components:{
     Navbar,
     Questao
-  }
+  },
 }
 </script>
 
@@ -41,6 +44,22 @@ export default {
 }
 .espaco{
   margin-top: 10px;
+}
+#botao{
+  padding: 8px 19px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #1B3458;
+  color: #fdfdfd;
+  font-family: Lato;
+}
+#envoltaBut{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  height: 80px;
+  align-items: center;
+
 }
 @media (max-width: 1024px ) {
   #formulario{

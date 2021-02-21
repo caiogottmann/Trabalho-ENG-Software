@@ -9,7 +9,7 @@ alteravel: Boolean, true;
 <template>
   <div id="que">
     <label id="tit" :for="nomeInput" >{{titulo}}</label >  
-    <input autocomplete="off" :name="nomeInput" :placeholder="inputPlaceHolder" :type="tipo" :disabled="inalteravel" />
+    <input :pattern="expRegular" :required="requerido" autocomplete="off" :name="nomeInput" :placeholder="inputPlaceHolder" :type="tipo" :disabled="inalteravel" />
   </div>
 </template>
 
@@ -36,8 +36,16 @@ export default {
     inalteravel:{
       type: Boolean,
       default: false
+    },
+    expRegular:{
+      type: String,
+      default: "*"
+    },
+    requerido:{
+      type: Boolean,
+      default: false
     }
-  }
+  },
 }
 </script>
 
