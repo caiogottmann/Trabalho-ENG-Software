@@ -7,6 +7,19 @@
 </template>
 
 <style>
+@font-face {
+  font-family: Lato;
+  src: url("assets/Lato/Lato-Medium.ttf") format("truetype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: Lato-bold;
+  src: url("assets/Lato/Lato-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: Lato-bolder;
+  src: url("assets/Lato/Lato-Black.ttf") format("truetype");
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
