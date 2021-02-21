@@ -1,18 +1,26 @@
 <template>
   <div>
-    <!-- Image and text -->
-    <b-navbar id="navbar">
+  <b-navbar toggleable="lg" id="navbar">
       <b-navbar-brand href="#" id="brand_minha">
         <img src="@/assets/logo.png" id="logo" alt="Logo">
         BootstrapVue
       </b-navbar-brand>
-      <b-navbar-nav>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
         <b-nav-item href="#">Post</b-nav-item>
         <b-nav-item href="/cadastrarEmail">Cadastrar e-mail</b-nav-item>
         <b-nav-item href="#">Contato</b-nav-item>
+
+
       </b-navbar-nav>
-    </b-navbar>
-  </div>  
+    </b-collapse>
+  </b-navbar>
+</div> 
 </template>
 
 <script>
