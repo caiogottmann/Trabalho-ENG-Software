@@ -5,14 +5,16 @@
       <div id="formulario">
         <h1 id="titulo">CADASTRE SEU E-MAIL</h1>
         <form id="forms" @submit.prevent="onSubmit">
-          <questao titulo="Nome:" nomeInput="nome" expRegular="[A-Za-z]([A-Za-z]|[\b])*" inputPlaceHolder="Fulano de Tal" :requerido="true"/>
-          <questao class="espaco" titulo="Email:" nomeInput="email" expRegular="[\w|.]*@[\w|.]*(.[a-zA-Z]*)+" :requerido="true" inputPlaceHolder="exem.plo1@exem.com"/>
+          <questao titulo="Nome:" nomeInput="nome" expRegular="^[A-Za-z\s]*$" inputPlaceHolder="Fulano de Tal" :requerido="true"/>
+          <questao class="espaco" titulo="Email:" nomeInput="email" expRegular="^[\w\u002E]+@[\w]+(\u002E\w+)+$" :requerido="true" inputPlaceHolder="exem.plo1@exem.com"/>
           <div id="envoltaBut">
             <input type="submit" id="botao" value="Enviar"/>
           </div>
         </form>
       </div>
     </div>
+    <modal-feedback @fecha="showSucess = false" :certo="true" mensagem="Enviado com sucesso!" :ativado="showSucess" />
+    <modal-feedback @fecha="showError = false" :certo="false" mensagem="Erro ao enviar" :ativado="showError" />
   </div>
 </template>
 
@@ -20,10 +22,14 @@
 import Navbar from '../components/navbar.vue'
 import Questao from '../components/questao.vue'
 import formEmail from  '@/services/api/formEmail.js'
+import ModalFeedback from '../components/modalFeedback.vue'
+
+
 export default {
   components:{
     Navbar,
-    Questao
+    Questao,
+    ModalFeedback
   },
   data(){
     return{
@@ -50,10 +56,9 @@ export default {
       formEmail
         .formEmail(data)
         .then(() => {
-          this.nome = "";
-          this.email = "";
           this.showSucess = true;
           console.log("deu bom");
+          document.getElementById("forms").reset();
         })
         .catch(() => {
           this.showError = true;
