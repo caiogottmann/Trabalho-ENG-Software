@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import emails from '@/app/schemas/Email.js';
-import authMiddleware from '@/app/middlewares/auth';
+import Email from '@/app/schemas/Email.js';
+//import authMiddleware from '@/app/middlewares/auth';
 const router = new Router();
 
 
