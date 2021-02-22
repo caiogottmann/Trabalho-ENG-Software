@@ -4,9 +4,9 @@
     <div id="pagina">
       <div id="formulario">
         <h1 id="titulo">CADASTRE SEU E-MAIL</h1>
-        <form id="forms">
+        <form id="forms" @submit.prevent="onSubmit">
           <questao titulo="Nome:" nomeInput="nome" expRegular="[A-Za-z]([A-Za-z]|[\b])*" inputPlaceHolder="Fulano de Tal" :requerido="true"/>
-          <questao class="espaco" titulo="Email:" nomeInput="nome" expRegular="[\w|.]*@[\w|.]*(.[a-zA-Z]*)+" :requerido="true" inputPlaceHolder="exem.plo1@exem.com"/>
+          <questao class="espaco" titulo="Email:" nomeInput="email" expRegular="[\w|.]*@[\w|.]*(.[a-zA-Z]*)+" :requerido="true" inputPlaceHolder="exem.plo1@exem.com"/>
           <div id="envoltaBut">
             <input type="submit" id="botao" value="Enviar"/>
           </div>
@@ -19,11 +19,62 @@
 <script>
 import Navbar from '../components/navbar.vue'
 import Questao from '../components/questao.vue'
+import formEmail from  '@/services/api/formEmail.js'
 export default {
   components:{
     Navbar,
     Questao
   },
+  data(){
+    return{
+      showError: false,
+      showSucess: false,
+      showSpinner: false,
+    }
+  },
+  methods: {
+    onSubmit() {
+      let inputes = document.getElementsByTagName('input');
+      let valores = [inputes[0].value, inputes[1].value];
+      console.log(inputes);
+      console.log(valores);
+      
+      this.showSpinner = true;
+      const data = {
+        nome: valores[0],
+        email: valores[1],
+      };
+
+      this.form = [];
+      // console.log(data);
+      formEmail
+        .formEmail(data)
+        .then(() => {
+          this.nome = "";
+          this.email = "";
+          this.showSucess = true;
+          console.log("deu bom");
+        })
+        .catch(() => {
+          this.showError = true;
+          console.log("deu ruim");
+        });
+    },
+    enter: function() {
+      var that = this;
+
+      setTimeout(function() {
+        that.showSucess = false;
+        that.showError = false;
+        that.showSpinner = false;
+      }, 3200);
+      setTimeout(function() {
+        that.showSpinner = false;
+      }, 300);
+    },
+  },
+
+
 }
 </script>
 
