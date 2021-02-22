@@ -16,8 +16,8 @@ router.post('/', async (req, res) => {
           'Erro ao criar schema de Email',
           error,
         );
-        resolve('Adicionado a lista com sucesso');
       });
+      res.status(200).send('Email cadastrado com sucesso');
 });
 
 
@@ -45,7 +45,8 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
 
 
 
-router.delete('/id', /*authMiddleware,*/ async (req, res) => {
+router.delete('/:emailsId', /*authMiddleware,*/ async (req, res) => {
+  console.log(req.params);
     await Email
     .findByIdAndRemove(req.params.emailsId)
     .then(() => {
