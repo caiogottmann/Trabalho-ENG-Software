@@ -6,17 +6,13 @@
         <p v-if="!isPhone()"> Blog da Comb Jr. - {{pagina}} </p>
       </b-navbar-brand>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-    <b-collapse id="nav-collapse" is-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         
-        <button id="botao">Fechar</button>
+        <button id="botao">Sair</button>
 
       </b-navbar-nav>
-    </b-collapse>
   </b-navbar>
   </div>
 </template>
@@ -77,5 +73,12 @@ export default {
 }
 #logo{
   margin-right: 1vw;
+}
+@media (max-width: 420px) {
+  #navbar{
+    width: 90%;
+    margin-left: 10%;
+    
+  }
 }
 </style>
