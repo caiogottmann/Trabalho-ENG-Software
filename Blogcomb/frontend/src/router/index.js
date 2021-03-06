@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import cadastrarEmail from "../views/cadastrarEmail.vue";
+import post from "../views/post.vue";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
     path: "/cadastrarEmail",
     name: "cadastrarEmail",
     component: cadastrarEmail
+  },
+  {
+    path:"/post",
+    name: "post",
+    component: post
   }
   /*
   {
