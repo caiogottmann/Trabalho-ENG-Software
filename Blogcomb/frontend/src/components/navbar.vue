@@ -3,7 +3,7 @@
   <b-navbar toggleable="lg" id="navbar">
       <b-navbar-brand href="#" id="brand_minha">
         <img src="@/assets/logo.png" id="logo" alt="Logo">
-        BootstrapVue
+        BlogComb
       </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
