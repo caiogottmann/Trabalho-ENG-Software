@@ -1,7 +1,5 @@
 <template>
   <div>
-    <sidebar/>
-    <navbar-admin/>
     <div id="form">
       <div id="titulo">
         <h2>Post</h2>
@@ -28,16 +26,12 @@
 </template>
 
 <script>
-import NavbarAdmin from '../components/navbarAdmin.vue'
 import Questao from '../components/questao.vue'
-import Sidebar from '../components/sidebar.vue'
 
 
 
 export default {
   components:{
-    Sidebar,
-    NavbarAdmin,
     Questao
   }  
 }
@@ -45,7 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 #form{
-  margin-left: 20vw;
   width: 80vw;
   padding-left: 30px;
   padding-top: 30px;
