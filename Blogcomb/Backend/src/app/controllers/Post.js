@@ -1,23 +1,23 @@
 import { Router } from 'express';
-import Email from '@/app/schemas/Email.js';
+import Post from '@/app/schemas/Post.js';
 //import authMiddleware from '@/app/middlewares/auth';
 const router = new Router();
 
 
 
 router.post('/', async (req, res) => {
-    const { titulo, texto, tag, creator } = req.body;
-    const data = new Date().now;
+    const { titulo, texto, data, tag, creator } = req.body;
     Post.create({
-        titulo, texto, data, tag, creator 
+        titulo, texto, data, tag, creator
       })
       .catch((error) => {
         console.error(
-          'Erro ao criar schema de Email',
-          error,
+          'Erro ao criar schema de Post',
+          error, 
+          'titulo: ', titulo, ' texto: ', texto, ' data: ', data, ' tag: ', tag, ' creator: ', creator
         );
       });
-      res.status(200).send('Email cadastrado com sucesso');
+      res.status(200).send('Post cadastrado com sucesso');
 });
 
 router.post('/edit', async (req, res) => {
