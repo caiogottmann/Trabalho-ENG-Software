@@ -16,10 +16,33 @@ router.post('/', async (req, res) => {
           'Erro ao criar schema de Email',
           error,
         );
+        return res.status(500).send({ error: 'Erro ao criar email' });
       });
       res.status(200).send('Email cadastrado com sucesso');
 });
 
+router.post('/edit', async (req, res) => {
+  const { nome, email } = req.body;
+  Email.findOne({email: email}).then((user) => {
+    if (emailencontrado) {
+      emailencontrado.email = email;
+      emailencontrado.nome = nome;
+      emailencontrado.save().then(() => {
+        return res.status(200).send({ message: 'Email alterado com sucesso'});
+      })
+      .catch((error) => {
+        console.error(
+          'Erro ao atualizar schema de Email',
+          error,
+        );
+        return res.status(500).send({ error: 'Erro ao alterar email' });
+      });
+    }
+    else {
+      return res.status(404).send({ error: 'Email não encontrado' });
+    }
+  })
+});
 
 router.get('/', /*authMiddleware,*/ async (req, res) => {
     var emailscompact = [];
@@ -36,7 +59,7 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
     })
     .catch((error) => {
       console.error('Erro ao obter os dados', error);
-      res.status(400).send({
+      return res.status(400).send({
         error: 'Não foi possível exibir os dados, tente novamente',
       });
     });
@@ -50,11 +73,11 @@ router.delete('/:emailsId', /*authMiddleware,*/ async (req, res) => {
     await Email
     .findByIdAndRemove(req.params.emailsId)
     .then(() => {
-      res.send({ message: 'Removido com sucesso' });
+      return res.send({ message: 'Removido com sucesso' });
     })
     .catch((error) => {
       console.error('Erro ao remover Email', error);
-      res.status(400).send({
+      return res.status(400).send({
         error: 'Não foi possível remover o email, tente novamente',
       });
     });
