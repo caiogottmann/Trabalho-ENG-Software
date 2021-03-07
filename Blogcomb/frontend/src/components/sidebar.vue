@@ -24,17 +24,17 @@
           <p class="NameUser1">Carlos Alberto</p>
         </div>
 
-        <b-nav-item v-on:click="$router.push('/admin/apresentacao')" :active="true" href="/post" class="Button1">
+        <b-nav-item v-on:click="$router.push('/post')" :active="true" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/post.svg')" />
           <span v-if="!telaMobile() || !isClosed">Posts</span>
         </b-nav-item>
 
-        <b-nav-item v-on:click="$router.push('/admin/etapas')" :active="true" class="Button1">
+        <b-nav-item v-on:click="$router.push('')" :active="true" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/membros.svg')" />
           <span v-if="!telaMobile() || !isClosed">Membros</span>
         </b-nav-item>
 
-        <b-nav-item v-on:click="$router.push('/admin/inscricoes')" class="Button1">
+        <b-nav-item v-on:click="$router.push('/email')" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/email.svg')" />
           <span v-if="!telaMobile() || !isClosed">Emails automáticos</span>
         </b-nav-item>
