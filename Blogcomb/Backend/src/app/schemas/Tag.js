@@ -1,15 +1,15 @@
 import mongoose from '@/database';
 
 const emailSchema = new mongoose.Schema({
-  nome: {
-    type: String,
-    required: true,
-  },
-  email: {
+  tag: {
     type: String,
     required: true,
     unique: true,
+  },
+  posts: {
+    type: Array,
+    required: true,
   }
 });
 
-export default mongoose.model('emails', emailSchema);
+export default mongoose.model('tags', tagSchema);
