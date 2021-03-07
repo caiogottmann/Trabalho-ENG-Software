@@ -38,19 +38,13 @@ export default {
     size: {
       type: String,
     },
-    link:{
+    link: {
       type: String,
-      required: true, 
-    }
+    },
   },
   methods: {
     click() {
       this.$emit("click");
-      if (this.buttonText == "CONTATE-NOS") {
-        var element = document.getElementById("linkContato");
-        var top = element.offsetTop;
-        window.scrollTo({ top: top, behavior: "smooth" });
-      }
     },
   },
 };
@@ -87,7 +81,7 @@ export default {
 
 .dashButton {
   color: #ffffff;
-  background-color: #1B3458;
+  background-color: #1b3458;
   box-shadow: unset;
   letter-spacing: 1px;
 }
@@ -95,7 +89,7 @@ export default {
 .dashInvert {
   color: #304e8c;
   background-color: transparent;
-  border: 1px solid #1B3458;
+  border: 1px solid #1b3458;
   box-sizing: border-box;
   border-radius: 3px;
 }
