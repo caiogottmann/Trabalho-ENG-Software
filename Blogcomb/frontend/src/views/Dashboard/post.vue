@@ -238,8 +238,29 @@ export default {
   methods: {
     updateList() {
       PostAPI.getPosts().then((res) => {
-        this.items = res.data;
+        res.data.map((a) => {
+          var stringTags = "";
+          a.tag.map((tags) => {
+            stringTags += tags + ", ";
+          });
+          a.tag = stringTags;
+          a.data = this.dataAtualFormatada(a.data);
+
+          // Formatar a data e o array de tags
+          this.items.push(a);
+        });
       });
+    },
+    dataAtualFormatada(d) {
+      var data = new Date(d);
+      var dia = data
+        .getDate()
+        .toString()
+        .padStart(2, "0");
+      dia++;
+      var mes = (data.getMonth() + 1).toString().padStart(2, "0"); //+1 pois no getMonth Janeiro começa com zero.
+      var ano = data.getFullYear();
+      return dia + "/" + mes + "/" + ano;
     },
   },
 };
