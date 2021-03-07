@@ -9,6 +9,7 @@
         </b-row>
         <b-row id="button" class="align-button">
           <blueButton
+            link="/criaPost"
             buttonText="Adicionar"
             dash
             size="md"
