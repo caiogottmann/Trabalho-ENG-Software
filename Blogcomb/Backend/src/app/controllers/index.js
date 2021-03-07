@@ -1,3 +1,4 @@
 import Email from './Email';
+import Post from './Post';
 
-export { Email };
+export { Post, Email };
