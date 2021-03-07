@@ -4,36 +4,93 @@
       <div id="titulo">
         <h2>Post</h2>
       </div>
-      <form>
-      <div class="dusasQuestoes">
-        <questao class="question" titulo="Id" nomeInput="id" expRegular="^[0-9]" :requerido="true" inputPlaceHolder="exem.plo1@exem.com" inalteravel="false"/>
-        <questao class="question" titulo="Título" nomeInput="titulo" expRegular="\w*" :requerido="true" inputPlaceHolder="Titulo do texto"/>
-      </div>
-      <div id="umaQuestao">
-        <label  >Texto</label >  
-        <textarea rows="10" />
-      </div>
-       <div class="dusasQuestoes">
-        <questao class="question" titulo="Data de Postagem" nomeInput="data" :requerido="true" inputPlaceHolder="06/06/2021" tipo="date" />
-        <questao class="question" titulo="Tag" nomeInput="tag" expRegular="^[0-9]" :requerido="true" inputPlaceHolder="Rh, Ps, soft skills" />
-      </div>
-      <div id="divbut">
-        <button id="botao">Salvar</button>
-      </div>
+      <form id="forms" @submit.prevent="onSubmit">
+        <div class="dusasQuestoes">
+          <questao class="question" titulo="Id" nomeInput="id" expRegular="^[0-9]" :requerido="true" />
+          <questao class="question" titulo="Título" nomeInput="titulo" expRegular="\w*" :requerido="true" inputPlaceHolder="Titulo do texto"/>
+        </div>
+        <div id="umaQuestao">
+          <label  >Texto</label >  
+          <textarea rows="10" />
+        </div>
+        <div class="dusasQuestoes">
+          <questao class="question" titulo="Data de Postagem" nomeInput="data" :requerido="true" inputPlaceHolder="06/06/2021" tipo="date" />
+          <questao class="question" titulo="Tag" nomeInput="tag" expRegular="^[\w\u002C\s]*" :requerido="true" inputPlaceHolder="Rh, Ps, soft skills" />
+        </div>
+        <div id="divbut">
+          <button id="botao">Salvar</button>
+        </div>
       </form>
-    </div>
+    </div>  
+    <modal-feedback @fecha="showSucess = false" :certo="true" mensagem="Enviado com sucesso!" :ativado="showSucess" />
+    <modal-feedback @fecha="showError = false" :certo="false" mensagem="Erro ao enviar" :ativado="showError" />
+ 
   </div>
 </template>
 
 <script>
 import Questao from '../components/questao.vue'
+import criaPost from  '@/services/api/criaPost.js'
+import ModalFeedback from '../components/modalFeedback.vue'
 
 
 
 export default {
   components:{
-    Questao
-  }  
+    Questao,
+    ModalFeedback
+  },
+  data(){
+    return{
+      showError: false,
+      showSucess: false,
+      showSpinner: false,
+    }
+  },
+  methods: {
+    onSubmit() {
+      let inputes = document.getElementsByTagName('input');
+      let valorAreaTexto = document.getElementsByTagName('textarea')[0].value;
+      let valores = [inputes[0].value, inputes[1].value, inputes[2].value, inputes[3].value];
+      console.log(inputes);
+      console.log(valores);
+      
+      this.showSpinner = true;
+      const data = {
+        titulo: valores[1],
+        texto: valorAreaTexto,
+        tag: valores[3],
+        creator: "Carlos Alberto"
+
+      };
+
+      this.form = [];
+      console.log(data);
+      criaPost
+        .criaPost(data)
+        .then(() => {
+          this.showSucess = true;
+          console.log("deu bom");
+          document.getElementById("forms").reset();
+        })
+        .catch(() => {
+          this.showError = true;
+          console.log("deu ruim");
+        });
+    },
+    enter: function() {
+      var that = this;
+
+      setTimeout(function() {
+        that.showSucess = false;
+        that.showError = false;
+        that.showSpinner = false;
+      }, 3200);
+      setTimeout(function() {
+        that.showSpinner = false;
+      }, 300);
+    },
+  },
 }
 </script>
 

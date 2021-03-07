@@ -6,8 +6,8 @@
       :visible="true"
       bg-variant="none"
       shadow
-      no-header="true"
-      no-header-close="true"
+      :no-header="true"
+      :no-header-close="true"
       no-close-on-route-change
     >
       <div class="d-flex justify-content-start" v-if="telaMobile">
@@ -17,26 +17,26 @@
       </div>
 
       <div class="ImgSet">
-        <div v-if="!telaMobile || !isClosed" class="User">
+        <div v-if="!telaMobile() || !isClosed" class="User">
           <b-img class="Image" :src="require('../assets/ImagemPerfil.png')"></b-img>
 
           <p class="NameUser">Administrador</p>
           <p class="NameUser1">Carlos Alberto</p>
         </div>
 
-        <b-nav-item v-on:click="$router.push('/admin/apresentacao')" active="true" href="/post" class="Button1">
+        <b-nav-item v-on:click="$router.push('/admin/apresentacao')" :active="true" href="/post" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/post.svg')" />
-          <span v-if="!telaMobile || !isClosed">Posts</span>
+          <span v-if="!telaMobile() || !isClosed">Posts</span>
         </b-nav-item>
 
-        <b-nav-item v-on:click="$router.push('/admin/etapas')" active="true" class="Button1">
+        <b-nav-item v-on:click="$router.push('/admin/etapas')" :active="true" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/membros.svg')" />
-          <span v-if="!telaMobile || !isClosed">Membros</span>
+          <span v-if="!telaMobile() || !isClosed">Membros</span>
         </b-nav-item>
 
         <b-nav-item v-on:click="$router.push('/admin/inscricoes')" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/email.svg')" />
-          <span v-if="!telaMobile || !isClosed">Emails automáticos</span>
+          <span v-if="!telaMobile() || !isClosed">Emails automáticos</span>
         </b-nav-item>
 
       </div>
@@ -56,6 +56,9 @@ export default {
   methods: {
     checaTamanho() {
       this.widthAtual = window.innerWidth;
+    },
+    telaMobile() {
+      return this.widthAtual <= 750;
     }
   },
   created() {
@@ -64,12 +67,8 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.checaTamanho);
-  },
-  computed: {
-    telaMobile() {
-      return this.widthAtual <= 750;
-    }
   }
+  
 };
 </script>
 
