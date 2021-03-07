@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import cadastrarEmail from "../views/cadastrarEmail.vue";
 import admin from "../views/Dashboard/index.vue";
 import post from "../views/post.vue";
+import criaPost from "../views/criaPost.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
         path: "/post",
         name: "post",
         component: post,
+      },
+      {
+        path: "/criaPost",
+        name: "criaPost",
+        component: criaPost,
       },
     ],
   },
