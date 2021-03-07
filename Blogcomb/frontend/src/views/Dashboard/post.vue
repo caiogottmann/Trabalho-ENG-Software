@@ -211,6 +211,8 @@
 
 <script>
 import blueButton from "@/components/button";
+import PostAPI from "@/services/api/criaPost";
+
 export default {
   components: { blueButton },
 
@@ -227,37 +229,18 @@ export default {
         { label: "Tags", key: "tag" },
         { label: "", key: "actions" },
       ],
-      items: [
-        {
-          id: 1,
-          titulo: "Dickerson",
-          texto: "Macdonald",
-          data: "Macdonald",
-          tag: "Macdonald",
-        },
-        {
-          id: 2,
-          titulo: "Larsen",
-          texto: "Shaw",
-          data: "Macdonald",
-          tag: "Macdonald",
-        },
-        {
-          id: 3,
-          titulo: "Geneva",
-          texto: "Wilson",
-          data: "Macdonald",
-          tag: "Macdonald",
-        },
-        {
-          id: 4,
-          titulo: "Jami",
-          texto: "Carney",
-          data: "Macdonald",
-          tag: "Macdonald",
-        },
-      ],
+      items: [],
     };
+  },
+  created() {
+    this.updateList();
+  },
+  methods: {
+    updateList() {
+      PostAPI.getPosts().then((res) => {
+        this.items = res.data;
+      });
+    },
   },
 };
 </script>
