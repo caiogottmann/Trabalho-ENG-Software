@@ -8,9 +8,9 @@
         <div class="dusasQuestoes">
           <questao
             class="question"
-            titulo="Id"
+            titulo="Seu id"
             nomeInput="id"
-            expRegular="^[0-9]"
+            expRegular="^[0-9]*"
             :requerido="true"
           />
           <questao
@@ -94,14 +94,18 @@ export default {
       console.log(inputes);
       console.log(valores);
 
+      valores[3] = valores[3].replace(", ", ",");
+      valores[3] = valores[3].split(",");
+
+      console.log(valores[3]);
       this.showSpinner = true;
       const data = {
         titulo: valores[1],
         texto: valorAreaTexto,
+        data: valores[2],
         tag: valores[3],
-        creator: "Carlos Alberto",
+        creator: valores[0],
       };
-
       this.form = [];
       console.log(data);
       criaPost

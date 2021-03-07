@@ -6,15 +6,15 @@ const router = new Router();
 
 
 router.post('/', async (req, res) => {
-    const { titulo, texto, tag, creator } = req.body;
-    const data = new Date().now;
+    const { titulo, texto, data, tag, creator } = req.body;
     Post.create({
-        titulo, texto, data, tag, creator 
+        titulo, texto, data, tag, creator
       })
       .catch((error) => {
         console.error(
           'Erro ao criar schema de Post',
-          error,
+          error, 
+          'titulo: ', titulo, ' texto: ', texto, ' data: ', data, ' tag: ', tag, ' creator: ', creator
         );
       });
       res.status(200).send('Post cadastrado com sucesso');

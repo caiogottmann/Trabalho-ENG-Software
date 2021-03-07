@@ -1,6 +1,6 @@
 import Api from "@/services/api/Api.js";
 
-const criaPost = dados => {
+const criaPost = (dados) => {
   return Api().post("/Post", dados);
 };
 
