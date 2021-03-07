@@ -3,8 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import cadastrarEmail from "../views/cadastrarEmail.vue";
 import admin from "../views/Dashboard/index.vue";
-import post from "../views/post.vue";
-import criaPost from "../views/criaPost.vue";
+import post from "../views/Dashboard/post.vue";
+import criaPost from "../views/Dashboard/criaPost.vue";
+import email from "../views/Dashboard/email.vue";
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,11 @@ const routes = [
         path: "/post",
         name: "post",
         component: post,
+      },
+      {
+        path: "/email",
+        name: "email",
+        component: email,
       },
       {
         path: "/criaPost",

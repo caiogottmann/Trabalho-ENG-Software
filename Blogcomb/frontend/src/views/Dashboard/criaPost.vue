@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Questao from '../components/questao.vue'
+import Questao from '../../components/questao.vue'
 
 
 
