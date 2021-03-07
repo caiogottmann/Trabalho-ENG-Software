@@ -24,7 +24,7 @@
           <p class="NameUser1">Carlos Alberto</p>
         </div>
 
-        <b-nav-item v-on:click="$router.push('/admin/apresentacao')" active="true" class="Button1">
+        <b-nav-item v-on:click="$router.push('/admin/apresentacao')" active="true" href="/post" class="Button1">
           <b-img clsss="Icon" :src="require('../assets/post.svg')" />
           <span v-if="!telaMobile || !isClosed">Posts</span>
         </b-nav-item>

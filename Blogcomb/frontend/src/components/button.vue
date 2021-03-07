@@ -1,11 +1,13 @@
 <template>
-  <button
-    @click="click()"
-    :style="customStyle"
-    :class="[{ dashButton: dash }, 'button', size, { dashInvert: invert }]"
-  >
-    {{ buttonText }}
-  </button>
+  <a :href="link">
+    <button
+      @click="click()"
+      :style="customStyle"
+      :class="[{ dashButton: dash }, 'button', size, { dashInvert: invert }]"
+    >
+      {{ buttonText }}
+    </button>
+  </a>
 </template>
 
 <script>
@@ -36,6 +38,10 @@ export default {
     size: {
       type: String,
     },
+    link:{
+      type: String,
+      required: true, 
+    }
   },
   methods: {
     click() {
@@ -62,7 +68,7 @@ export default {
 .button {
   padding: 16px 31px;
 
-  font-family: "Noto Sans";
+  font-family: Lato-bold;
   font-style: normal;
   font-weight: bold;
   font-size: min-max(12px, 10);
@@ -81,7 +87,7 @@ export default {
 
 .dashButton {
   color: #ffffff;
-  background-color: #304e8c;
+  background-color: #1B3458;
   box-shadow: unset;
   letter-spacing: 1px;
 }
@@ -89,7 +95,7 @@ export default {
 .dashInvert {
   color: #304e8c;
   background-color: transparent;
-  border: 1px solid #304e8c;
+  border: 1px solid #1B3458;
   box-sizing: border-box;
   border-radius: 3px;
 }
@@ -177,7 +183,7 @@ export default {
   }
 
   .dashInvert {
-    border: 1px solid #304e8c;
+    border: 1px solid #1e438b;
     box-sizing: border-box;
     border-radius: 3px;
   }
@@ -196,14 +202,14 @@ export default {
 }
 
 .dashButton:hover {
-  background-color: #3968c5;
+  background-color: #063ead;
   -webkit-box-shadow: unset;
   -moz-box-shadow: unset;
   box-shadow: unset;
 }
 
 .dashButton:focus {
-  background-color: #3968c5;
+  background-color: #033db1;
   -webkit-box-shadow: unset;
   -moz-box-shadow: unset;
   box-shadow: unset;

@@ -9,7 +9,7 @@
         </b-row>
         <b-row id="button" class="align-button">
           <blueButton
-            buttonText="ADICIONAR"
+            buttonText="Adicionar"
             dash
             size="md"
             v-b-modal.modalOccupationArea

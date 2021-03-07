@@ -3,13 +3,13 @@ titulo: String, required;
 inputPlaceHolder: String, "";
 nomeInput: String, required; 
 tipo: String, "text";
-alteravel: Boolean, true;
+inalteravel: Boolean, true;
 ---->
 
 <template>
   <div id="que">
     <label id="tit" :for="nomeInput" >{{titulo}}</label >  
-    <input :pattern="expRegular" :required="requerido" autocomplete="off" :name="nomeInput" :placeholder="inputPlaceHolder" :type="tipo" :disabled="inalteravel" />
+    <input :pattern="expRegular" :required="requerido" autocomplete="off" :name="nomeInput" :placeholder="inputPlaceHolder" :type="tipo" :disabled="inalteravel" :style="{height: altura }"/>
   </div>
 </template>
 
@@ -44,6 +44,10 @@ export default {
     requerido:{
       type: Boolean,
       default: false
+    },
+    altura:{
+      type: String,
+      default: "40px"
     }
   },
 }
@@ -66,6 +70,7 @@ export default {
   }
   input:disabled{
   background-color: #D0D0D0;
+  color: #303030;
   }
   input:focus{
     outline: 1px solid #555;

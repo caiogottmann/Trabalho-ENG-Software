@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import NavbarAdmin from "@/components/navbar.vue";
+import NavbarAdmin from "@/components/navbarAdmin.vue";
 import Sidebar from "@/components/sidebar.vue";
 
 export default {
