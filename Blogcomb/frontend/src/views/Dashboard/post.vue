@@ -243,8 +243,10 @@ export default {
           a.tag.map((tags) => {
             stringTags += tags + ", ";
           });
-          a.tag = stringTags;
-          a.data = this.dataAtualFormatada(a.data);
+          a.tag = stringTags.replace(/,\s*$/, "");
+          a.data = this.dataAtualFormatada(
+            a.data.substring(0, a.data.length - 1)
+          );
 
           // Formatar a data e o array de tags
           this.items.push(a);
@@ -257,7 +259,6 @@ export default {
         .getDate()
         .toString()
         .padStart(2, "0");
-      dia++;
       var mes = (data.getMonth() + 1).toString().padStart(2, "0"); //+1 pois no getMonth Janeiro começa com zero.
       var ano = data.getFullYear();
       return dia + "/" + mes + "/" + ano;
