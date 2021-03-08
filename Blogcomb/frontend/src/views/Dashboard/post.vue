@@ -31,110 +31,46 @@
               show-empty
               empty-text="Nenhum Post"
             >
-              <template class="a" #cell(actions)="">
+              <template class="a" #cell(actions)="data">
                 <b-row align-h="end">
                   <span>
-                    <b-icon icon="pencil-square" class="icon" scale="1.5">
+                    <b-icon
+                      @click="changePost(data.item)"
+                      v-b-modal.modalOccupationArea
+                      icon="pencil-square"
+                      class="icon"
+                      scale="1.5"
+                    >
                     </b-icon>
                   </span>
                   <span>
-                    <b-icon icon="trash" class="icon" scale="1.5"> </b-icon>
+                    <b-icon
+                      @click="deleteItem(data.item)"
+                      icon="trash"
+                      class="icon"
+                      scale="1.5"
+                    >
+                    </b-icon>
                   </span>
                 </b-row>
               </template>
             </b-table>
           </b-col>
         </b-row>
-        <!-- <b-modal
-          content-class="modalOcuppation103032"
-          id="modalOccupationArea"
-          centered
-          @ok="handleOk"
-          @hide="handleHide"
-        >
-          <template #modal-title="">
-            <h5>Editar sessão</h5>
-          </template>
-
-          <template #default="">
-            <p>Nome:</p>
-
-            <b-row no-gutters :align-h="invalidTitle ? 'between' : 'end'">
-              <b-form-input
-                :state="stateInput($v.toBeTransform.titulo)"
-                required
-                @blur="changeInvalidTitle()"
-                @input.native="invalidTitle = false"
-                v-model="$v.toBeTransform.titulo.$model"
-                placeholder="Nome da area de atuação"
-              ></b-form-input>
-              <b-row
-                v-if="invalidTitle"
-                align-v="center"
-                class="invalidMessage"
-              >
-                <b-img
-                  class="icon"
-                  :src="
-                    require('../../assets/dashboard/cadastro/icones/alert.svg')
-                  "
-                ></b-img>
-                <p>{{ messageTitle }}</p>
-              </b-row>
-              <div
-                :class="[
-                  'input-group-addon',
-                  { invalidCont: missingCharTitle < 0 },
-                ]"
-                v-text="missingCharTitle + '/50'"
-              ></div>
-            </b-row>
-
-            <p>Texto:</p>
-
-            <b-row no-gutters :align-h="invalidText ? 'between' : 'end'">
-              <b-form-textarea
-                :state="stateInput($v.toBeTransform.descricao)"
-                required
-                id="textarea"
-                @blur="changeInvalidText()"
-                @input.native="invalidText = false"
-                v-model="$v.toBeTransform.descricao.$model"
-                placeholder="Descrição da area de atuação"
-                rows="3"
-              ></b-form-textarea>
-
-              <b-row v-if="invalidText" align-v="center" class="invalidMessage">
-                <b-img
-                  class="icon"
-                  :src="
-                    require('../../assets/dashboard/cadastro/icones/alert.svg')
-                  "
-                ></b-img>
-                <p>{{ messageText }}</p>
-              </b-row>
-              <div
-                :class="[
-                  'input-group-addon',
-                  { invalidCont: missingCharText < 0 },
-                ]"
-                v-text="missingCharText + '/580'"
-              ></div>
-            </b-row>
-          </template>
-
-          <template #modal-footer="{ ok, cancel }">
-            <blueButton
-              buttonText="Cancelar"
-              dash
-              size="smCancel"
-              @click="cancel"
-            />
-            <blueButton buttonText="Salvar" dash size="sm" @click="ok()" />
-          </template>
-        </b-modal> -->
       </div>
     </b-container>
+    <modal-feedback
+      @fecha="showSucess = false"
+      :certo="true"
+      mensagem="Operacao efetuada com sucesso!"
+      :ativado="showSucess"
+    />
+    <modal-feedback
+      @fecha="showError = false"
+      :certo="false"
+      mensagem="Erro"
+      :ativado="showError"
+    />
   </b-row>
 </template>
 
@@ -145,6 +81,7 @@
 
 .icon {
   margin-right: 10px;
+  cursor: pointer;
 }
 #container {
   padding: min-max(20px, 36) min-max(24px, 64) 0;
@@ -207,21 +144,75 @@
     }
   }
 }
+
+#titulo {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1vh;
+}
+
+.dusasQuestoes {
+  display: flex;
+  margin-bottom: 10px;
+  .question {
+    margin-right: 10%;
+  }
+}
+#umaQuestao {
+  font-family: Lato-Bold;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10%;
+  margin-bottom: 10px;
+  label {
+    text-align: start;
+  }
+  textarea {
+    border: 0;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #f1f1f1;
+    padding-left: 5px;
+    resize: none;
+  }
+  textarea:focus {
+    outline: 1px solid #555;
+    -moz-outline-radius: 5px;
+  }
+}
+
+#divbut {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10%;
+}
+#botao {
+  padding: 5px 19px;
+  border: 0px solid #adadad;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: #f9f9f9;
+  font-family: Lato;
+}
 </style>
 
 <script>
 import blueButton from "@/components/button";
 import PostAPI from "@/services/api/criaPost";
-
+import ModalFeedback from "@/components/modalFeedback.vue";
 export default {
-  components: { blueButton },
+  components: { blueButton, ModalFeedback },
 
   data() {
     return {
+      showSucess: false,
+      showError: false,
       fields: [
         {
           label: "#",
-          key: "id",
+          key: "_id",
         },
         { label: "Titulo", key: "titulo" },
         { label: "Texto", key: "texto" },
@@ -238,7 +229,7 @@ export default {
   methods: {
     updateList() {
       PostAPI.getPosts().then((res) => {
-        res.data.map((a) => {
+        res.data.map((a, index) => {
           var stringTags = "";
           a.tag.map((tags) => {
             stringTags += tags + ", ";
@@ -247,11 +238,25 @@ export default {
           a.data = this.dataAtualFormatada(
             a.data.substring(0, a.data.length - 1)
           );
+          a._id = index + 1;
 
           // Formatar a data e o array de tags
           this.items.push(a);
         });
       });
+    },
+    deleteItem(data) {
+      PostAPI.deletePost(data.id)
+        .then(() => {
+          this.showSucess = true;
+          this.updateAll();
+        })
+        .catch(() => {
+          this.showError = true;
+        });
+    },
+    changePost(dado) {
+      this.$router.push({ path: `/post/edit/${dado.id}` });
     },
     dataAtualFormatada(d) {
       var data = new Date(d);
@@ -266,5 +271,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

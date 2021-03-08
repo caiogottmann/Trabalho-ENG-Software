@@ -23,9 +23,8 @@ router.post('/', async (req, res) => {
 router.post('/edit', async (req, res) => {
     const { postId, titulo, texto, tag, creator } = req.body;
     const Admin = 1;
-    Post.findOne({postId: postId}).then((post) => {
+    Post.findOne({_id: postId}).then((postencontrado) => {
         if (postencontrado) {
-            if (postencontrado.creator == userId || Admin) {
                 postencontrado.titulo = titulo;
                 postencontrado.texto = texto;
                 postencontrado.tag = tag;
@@ -39,10 +38,6 @@ router.post('/edit', async (req, res) => {
                     );
                     return res.status(500).send({ error: 'Erro ao alterar Post' });
                 });
-            }
-            else {
-                return res.status(401).send({ error: 'Não autorizado' });
-            }
         }
         else {
           return res.status(404).send({ error: 'Post não encontrado' });
