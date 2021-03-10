@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import Post from '@/app/schemas/Post.js';
+import Tag from '@/app/schemas/Tag.js';
+import Usuario from '@/app/schemas/Usuario.js';
+
 //import authMiddleware from '@/app/middlewares/auth';
 const router = new Router();
 
@@ -7,6 +10,22 @@ const router = new Router();
 
 router.post('/', async (req, res) => {
     const { titulo, texto, data, tag, creator } = req.body;
+    for (var i = 0; i < tag.length; i++) {
+      existetag = await Tag.findOne({tag: tag[i].tag[i]})
+      if(existetag) {
+        Tag.fi
+      } else {
+        Tag.create({
+          tag
+        })
+        .catch((error) => {
+          console.error(
+            'Erro ao criar schema de Tag',
+            error,
+          );
+        });
+      }
+    }
     Post.create({
         titulo, texto, data, tag, creator
       })
@@ -23,7 +42,7 @@ router.post('/', async (req, res) => {
 router.post('/edit', async (req, res) => {
     const { postId, titulo, texto, tag, creator } = req.body;
     const Admin = 1;
-    Post.findOne({postId: postId}).then((post) => {
+    Post.findOne({postId: postId}).then((postencontrado) => {
         if (postencontrado) {
             if (postencontrado.creator == userId || Admin) {
                 postencontrado.titulo = titulo;
@@ -75,6 +94,20 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
 
 });
 
+router.get('/:postsId', /*authMiddleware,*/ async (req, res) => {
+  var postscompact = [];
+  Post.findOne(req.params.postsId)
+  .then((posts) => {
+    res.send(posts);
+  })
+  .catch((error) => {
+    console.error('Erro ao obter os dados', error);
+    res.status(400).send({
+      error: 'Não foi possível exibir os dados, tente novamente',
+    });
+  });
+
+});
 
 
 router.delete('/:postsId', /*authMiddleware,*/ async (req, res) => {
