@@ -198,7 +198,7 @@ export default {
       fields: [
         {
           label: "#",
-          key: "id",
+          key: "_id",
         },
         { label: "Nome", key: "nome" },
         { label: "Email", key: "email" },
@@ -213,7 +213,10 @@ export default {
   methods: {
     updateAll() {
       emailAPI.getEmails().then((res) => {
-        this.items = res.data;
+        res.data.map((response, index) => {
+          response._id = index + 1;
+          this.items = res.data;
+        });
       });
     },
 

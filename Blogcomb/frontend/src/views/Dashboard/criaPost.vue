@@ -12,6 +12,7 @@
             nomeInput="id"
             expRegular="^[0-9]*"
             :requerido="true"
+            :inalteravel="edit"
           />
           <questao
             class="question"
@@ -34,6 +35,7 @@
             :requerido="true"
             inputPlaceHolder="06/06/2021"
             tipo="date"
+            :inalteravel="edit"
           />
           <questao
             class="question"
@@ -79,9 +81,38 @@ export default {
       showError: false,
       showSucess: false,
       showSpinner: false,
+      id: this.$route.params.id,
+      edit: false,
     };
   },
+  mounted() {
+    if (this.id) {
+      this.edit = true;
+      let inputes = document.getElementsByTagName("input");
+      var post = this.getPost();
+      inputes[0].value = post[0].creator;
+      inputes[1].value = post[0].titulo;
+      inputes[2].value = this.dataAtualFormatada(post[0].data);
+      inputes[3].value = post[0].tag;
+      document.getElementsByTagName("textarea")[0].value = post[0].texto;
+    }
+  },
   methods: {
+    dataAtualFormatada(d) {
+      var data = new Date(d);
+      var dia = data
+        .getDate()
+        .toString()
+        .padStart(2, "0");
+      var mes = (data.getMonth() + 1).toString().padStart(2, "0"); //+1 pois no getMonth Janeiro começa com zero.
+      var ano = data.getFullYear();
+      return ano + "-" + mes + "-" + dia;
+    },
+    getPost() {
+      criaPost.getPost(this.id).then((res) => {
+        return res;
+      });
+    },
     onSubmit() {
       let inputes = document.getElementsByTagName("input");
       let valorAreaTexto = document.getElementsByTagName("textarea")[0].value;
@@ -100,6 +131,7 @@ export default {
       console.log(valores[3]);
       this.showSpinner = true;
       const data = {
+        postId: this.id,
         titulo: valores[1],
         texto: valorAreaTexto,
         data: valores[2],
@@ -108,17 +140,29 @@ export default {
       };
       this.form = [];
       console.log(data);
-      criaPost
-        .criaPost(data)
-        .then(() => {
-          this.showSucess = true;
-          console.log("deu bom");
-          document.getElementById("forms").reset();
-        })
-        .catch(() => {
-          this.showError = true;
-          console.log("deu ruim");
-        });
+      if (this.id) {
+        criaPost
+          .editPost(data)
+          .then(() => {
+            this.showSucess = true;
+            this.$router.push({ path: "/post" });
+          })
+          .catch(() => {
+            this.showError = true;
+          });
+      } else {
+        criaPost
+          .criaPost(data)
+          .then(() => {
+            this.showSucess = true;
+            console.log("deu bom");
+            document.getElementById("forms").reset();
+          })
+          .catch(() => {
+            this.showError = true;
+            console.log("deu ruim");
+          });
+      }
     },
     enter: function() {
       var that = this;

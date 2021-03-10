@@ -32,6 +32,11 @@ const routes = [
         component: post,
       },
       {
+        path: "/post/edit/:id",
+        name: "post",
+        component: criaPost,
+      },
+      {
         path: "/email",
         name: "email",
         component: email,
