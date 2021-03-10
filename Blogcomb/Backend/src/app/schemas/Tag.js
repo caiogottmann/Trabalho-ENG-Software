@@ -6,10 +6,10 @@ const emailSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  posts: {
+  /*posts: {
     type: Array,
     required: true,
-  }
+  }*/
 });
 
 export default mongoose.model('tags', tagSchema);
