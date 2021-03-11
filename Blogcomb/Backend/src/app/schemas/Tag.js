@@ -1,6 +1,6 @@
 import mongoose from '@/database';
 
-const emailSchema = new mongoose.Schema({
+const tagSchema = new mongoose.Schema({
   tag: {
     type: String,
     required: true,

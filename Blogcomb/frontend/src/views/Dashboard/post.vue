@@ -36,7 +36,6 @@
                   <span>
                     <b-icon
                       @click="changePost(data.item)"
-                      v-b-modal.modalOccupationArea
                       icon="pencil-square"
                       class="icon"
                       scale="1.5"
@@ -60,7 +59,7 @@
       </div>
     </b-container>
     <modal-feedback
-      @fecha="showSucess = false"
+      @fecha="showSucess = false;"
       :certo="true"
       mensagem="Operacao efetuada com sucesso!"
       :ativado="showSucess"
@@ -249,7 +248,7 @@ export default {
       PostAPI.deletePost(data.id)
         .then(() => {
           this.showSucess = true;
-          this.updateAll();
+          this.items.splice(data._id-1,1);
         })
         .catch(() => {
           this.showError = true;

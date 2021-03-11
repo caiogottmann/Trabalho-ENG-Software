@@ -52,7 +52,7 @@
       </form>
     </div>
     <modal-feedback
-      @fecha="showSucess = false"
+      @fecha="redirect"
       :certo="true"
       mensagem="Enviado com sucesso!"
       :ativado="showSucess"
@@ -88,16 +88,13 @@ export default {
   mounted() {
     if (this.id) {
       this.edit = true;
-      let inputes = document.getElementsByTagName("input");
-      var post = this.getPost();
-      inputes[0].value = post[0].creator;
-      inputes[1].value = post[0].titulo;
-      inputes[2].value = this.dataAtualFormatada(post[0].data);
-      inputes[3].value = post[0].tag;
-      document.getElementsByTagName("textarea")[0].value = post[0].texto;
+      this.getPost();
     }
   },
   methods: {
+    redirect(){
+      this.$router.push({ path: "/post" });
+    },
     dataAtualFormatada(d) {
       var data = new Date(d);
       var dia = data
@@ -110,7 +107,16 @@ export default {
     },
     getPost() {
       criaPost.getPost(this.id).then((res) => {
-        return res;
+         let inputes = document.getElementsByTagName("input");
+      inputes[0].value = res.data.creator;
+      inputes[1].value = res.data.titulo;
+      inputes[2].value = this.dataAtualFormatada(res.data.data);
+      var stringTags =""
+       res.data.tag.map((tags) => {
+            stringTags += tags + ", ";
+          });
+      inputes[3].value = stringTags.replace(/,\s*$/, "");
+      document.getElementsByTagName("textarea")[0].value = res.data.texto;
       });
     },
     onSubmit() {
@@ -145,7 +151,6 @@ export default {
           .editPost(data)
           .then(() => {
             this.showSucess = true;
-            this.$router.push({ path: "/post" });
           })
           .catch(() => {
             this.showError = true;

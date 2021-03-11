@@ -11,10 +11,8 @@ const router = new Router();
 router.post('/', async (req, res) => {
     const { titulo, texto, data, tag, creator } = req.body;
     for (var i = 0; i < tag.length; i++) {
-      existetag = await Tag.findOne({tag: tag[i].tag[i]})
-      if(existetag) {
-        Tag.fi
-      } else {
+      var existetag = await Tag.findOne({tag: tag[i]})
+      if(!existetag) {
         Tag.create({
           tag
         })
@@ -43,7 +41,7 @@ router.post('/edit', async (req, res) => {
     const { postId, titulo, texto, tag, creator } = req.body;
     const Admin = 1;
 
-    Post.findOne({postId: postId}).then((postencontrado) => {
+    Post.findOne({_id: postId}).then((postencontrado) => {
         if (postencontrado) {
                 postencontrado.titulo = titulo;
                 postencontrado.texto = texto;
@@ -72,6 +70,7 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
     .then((posts) => {
       for (var i = 0; i < posts.length; i++) {
           postscompact = postscompact.concat({
+            id:posts[i]._id,
             titulo: posts[i].titulo,
             texto: posts[i].texto,
             data: posts[i].data,
@@ -91,8 +90,7 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
 });
 
 router.get('/:postsId', /*authMiddleware,*/ async (req, res) => {
-  var postscompact = [];
-  Post.findOne(req.params.postsId)
+  Post.findOne({_id: req.params.postsId})
   .then((posts) => {
     res.send(posts);
   })
