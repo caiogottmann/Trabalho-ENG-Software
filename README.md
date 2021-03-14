@@ -30,6 +30,15 @@ Blog tem como objetivo a divulgação de experiências e aprendizados das ferram
 ### Issues
 Para cada funcionalidade do sistema será criado uma issue para a elaboração, contendo a descrição das funcionalidades e dos requisitos já demarcados no documento de requisitos caso possua.
  
+### Padrões de codigo
+ - Identificação do código utilizando o Prettier, uma extensão do vs code.
+ - Nomeação das variáveis de forma clara, utilizando o CamelCase.
+ - Não utilização de comentários no código, porque os métodos do código, precisam ser auto explicativos.
+ - Cada arquivo deve fazer apenas uma funcionalidade.
+ - Todos os componentes precisam estar dentro da pasta Components.
+ - Deve ter tratamento de erro no frontend e também no backend.
+
+
 ### Hierarquia das pastas
 
 ```
