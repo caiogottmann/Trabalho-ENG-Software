@@ -21,11 +21,12 @@
             expRegular="\w*"
             :requerido="true"
             inputPlaceHolder="Titulo do texto"
+            :maxCaracteres=30
           />
         </div>
         <div id="umaQuestao">
           <label>Texto</label>
-          <textarea rows="10" />
+          <textarea required maxlength="10000" rows="10" />
         </div>
         <div class="dusasQuestoes">
           <questao
@@ -36,6 +37,7 @@
             inputPlaceHolder="06/06/2021"
             tipo="date"
             :inalteravel="edit"
+            :minDate="dataAtualFormatada(new Date())"
           />
           <questao
             class="question"
@@ -44,6 +46,7 @@
             expRegular="^[\w\u002C\s]*"
             :requerido="true"
             inputPlaceHolder="Rh, Ps, soft skills"
+            :maxCaracteres=20
           />
         </div>
         <div id="divbut">

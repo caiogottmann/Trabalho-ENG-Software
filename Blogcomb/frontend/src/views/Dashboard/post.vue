@@ -19,6 +19,7 @@
         <b-row>
           <b-col>
             <b-table
+            id="tabelaPosts"
               striped
               responsive="lg"
               borderless

@@ -9,7 +9,7 @@ inalteravel: Boolean, true;
 <template>
   <div id="que">
     <label id="tit" :for="nomeInput" >{{titulo}}</label >  
-    <input :pattern="expRegular" :required="requerido" autocomplete="off" :name="nomeInput" :placeholder="inputPlaceHolder" :type="tipo" :disabled="inalteravel" :style="{height: altura }"/>
+    <input :value="value" :maxlength="maxCaracteres" :min="minDate" :pattern="expRegular" :required="requerido" autocomplete="off" :name="nomeInput" :placeholder="inputPlaceHolder" :type="tipo" :disabled="inalteravel" :style="{height: altura }"/>
   </div>
 </template>
 
@@ -48,6 +48,15 @@ export default {
     altura:{
       type: String,
       default: "40px"
+    },
+    maxCaracteres:{
+      type: Number,
+    },
+    minDate:{
+      type: Number,
+    },
+    value:{
+      type: String
     }
   },
 }

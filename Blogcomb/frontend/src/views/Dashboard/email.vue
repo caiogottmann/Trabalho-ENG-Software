@@ -59,15 +59,11 @@
         <b-modal
           content-class="modalOcuppation103032"
           id="modalOccupationArea"
+          title="Editar email"
           centered
           @ok="handleOk"
-          @hide="handleHide"
         >
-          <template #modal-title="">
-            <h5>Editar email</h5>
-          </template>
-
-          <template #default="">
+          <b-form @submit="onSubmit">
             <p>Nome:</p>
 
             <b-row no-gutters>
@@ -76,11 +72,17 @@
             <p>Email:</p>
 
             <b-row no-gutters>
-              <b-form-input v-model="change.email" required></b-form-input>
+              <b-form-input type="email" disabled v-model="change.email" required></b-form-input>
             </b-row>
-          </template>
+            <b-button
+              ref="submitButton"
+              v-show="false"
+              type="submit"
+              variant="primary"
+              >Submit</b-button
+            >
 
-          <template #modal-footer="{ ok, cancel }">
+            <!-- <template #modal-footer="{ ok, cancel }">
             <blueButton
               buttonText="Cancelar"
               dash
@@ -88,7 +90,8 @@
               @click="cancel"
             />
             <blueButton buttonText="Salvar" dash size="sm" @click="ok()" />
-          </template>
+          </template> -->
+          </b-form>
         </b-modal>
       </div>
     </b-container>
@@ -224,16 +227,26 @@ export default {
       this.change.nome = data.nome;
       this.change.email = data.email;
     },
-    handleOk() {
-      emailAPI
-        .editEmail(this.change)
-        .then(() => {
-          this.showSucess = true;
-          this.updateAll();
-        })
-        .catch(() => {
-          this.showError = true;
-        });
+    onSubmit(event) {
+      event.preventDefault();
+    },
+    handleOk(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.$refs.submitButton.click();
+
+      if (this.change.nome != "") {
+        emailAPI
+          .editEmail(this.change)
+          .then(() => {
+            this.showSucess = true;
+            this.updateAll();
+            this.$bvModal.hide("modalOccupationArea");
+          })
+          .catch(() => {
+            this.showError = true;
+            this.$bvModal.hide("modalOccupationArea");
+          });
+      }
     },
     deleteItem(data) {
       emailAPI
