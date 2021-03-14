@@ -46,7 +46,7 @@ export default {
 
 @media only screen and (max-width: 750px) {
   .viewDash {
-    margin-left: 0;
+    margin-left: 42px;
     margin-top: 62px;
   }
 }
