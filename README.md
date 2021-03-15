@@ -50,7 +50,8 @@ Para cada funcionalidade do sistema será criado uma issue para a elaboração, 
 │   │   │   .gitignore
 │   │   │   package-lock.json
 │   │   │   package.json
-│   │   │
+│   │   └───Documentação
+│   │   │    │   swagger.yaml
 │   │   └───src
 │   │       │   index.js
 │   │       │
@@ -156,6 +157,7 @@ Para cada funcionalidade do sistema será criado uma issue para a elaboração, 
 │       Diagrama_de_sequencia-delete_email.svg
 │       Diagrama_de_sequencia-delete_post.svg
 │       Diagrama_de_sequencia-edit_post.svg
+|       Diagrama_de_sequencia-edit_email.svg
 │       Diagrama_de_sequencia-get_email.svg
 │       Diagrama_de_sequencia-get_post.svg
 │
