@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
       var existetag = await Tag.findOne({tag: tag[i]})
       if(!existetag) {
         Tag.create({
-          tag
+          tag : tag[i]
         })
         .catch((error) => {
           console.error(
