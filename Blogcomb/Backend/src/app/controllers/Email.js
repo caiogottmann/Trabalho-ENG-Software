@@ -51,7 +51,7 @@ router.get(
             email: emails[i].email,
           });
         }
-        res.send(emailscompact);
+        res.status(200).send(emailscompact);
       })
       .catch((error) => {
         console.error("Erro ao obter os dados", error);
@@ -68,7 +68,7 @@ router.delete(
     console.log(req.params);
     await Email.findByIdAndRemove(req.params.emailsId)
       .then(() => {
-        return res.send({ message: "Removido com sucesso" });
+        return res.status(200).send({ message: "Removido com sucesso" });
       })
       .catch((error) => {
         console.error("Erro ao remover Email", error);

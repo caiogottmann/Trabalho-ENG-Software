@@ -47,18 +47,18 @@ router.post('/edit', async (req, res) => {
                 postencontrado.texto = texto;
                 postencontrado.tag = tag;
                 postencontrado.save().then(() => {
-                    return res.status(200).send({ message: 'Post alterado com sucesso'});
+                    return res.status(200).send('Post alterado com sucesso');
                 })
                 .catch((error) => {
                     console.error(
                     'Erro ao atualizar schema de Post',
                     error,
                     );
-                    return res.status(500).send({ error: 'Erro ao alterar Post' });
+                    return res.status(500).send('Erro ao alterar Post');
                 });
         }
         else {
-          return res.status(404).send({ error: 'Post não encontrado' });
+          return res.status(404).send('Post não encontrado' );
         }
       })
 });
@@ -78,13 +78,13 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
             creator: posts[i].creator,
           });
         }
-      res.send(postscompact);
+      res.status(200).send(postscompact);
     })
     .catch((error) => {
       console.error('Erro ao obter os dados', error);
-      res.status(400).send({
-        error: 'Não foi possível exibir os dados, tente novamente',
-      });
+      res.status(400).send(
+        'Não foi possível exibir os dados, tente novamente',
+      );
     });
 
 });
@@ -92,7 +92,7 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
 router.get('/:postsId', /*authMiddleware,*/ async (req, res) => {
   Post.findOne({_id: req.params.postsId})
   .then((posts) => {
-    res.send(posts);
+    res.status(200).send(posts);
   })
   .catch((error) => {
     console.error('Erro ao obter os dados', error);
@@ -109,13 +109,13 @@ router.delete('/:postsId', /*authMiddleware,*/ async (req, res) => {
     await Post
     .findByIdAndRemove(req.params.postsId)
     .then(() => {
-      return res.send({ message: 'Removido com sucesso' });
+      return res.status(200).send('Removido com sucesso' );
     })
     .catch((error) => {
       console.error('Erro ao remover post', error);
-      return res.status(400).send({
-        error: 'Não foi possível remover o post, tente novamente',
-      });
+      return res.status(400).send(
+        'Não foi possível remover o post, tente novamente',
+      );
     });
 
 });
