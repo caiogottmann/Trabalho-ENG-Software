@@ -72,7 +72,12 @@
             <p>Email:</p>
 
             <b-row no-gutters>
-              <b-form-input type="email" disabled v-model="change.email" required></b-form-input>
+              <b-form-input
+                type="email"
+                disabled
+                v-model="change.email"
+                required
+              ></b-form-input>
             </b-row>
             <b-button
               ref="submitButton"
@@ -250,7 +255,7 @@ export default {
     },
     deleteItem(data) {
       emailAPI
-        .deleteEmail(data.id)
+        .deleteEmail(data.email)
         .then(() => {
           this.showSucess = true;
           this.updateAll();

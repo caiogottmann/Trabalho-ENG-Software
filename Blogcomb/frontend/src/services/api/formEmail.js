@@ -8,8 +8,8 @@ const editEmail = (dados) => {
   return Api().post("/Email/edit", dados);
 };
 
-const deleteEmail = (id) => {
-  return Api().delete(`/Email/${id}`);
+const deleteEmail = (email) => {
+  return Api().delete(`/Email/${email}`);
 };
 
 const getEmails = () => {
