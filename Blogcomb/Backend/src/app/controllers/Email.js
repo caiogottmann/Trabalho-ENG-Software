@@ -63,10 +63,9 @@ router.get(
 );
 
 router.delete(
-  "/:emailsId",
+  "/:email",
   /*authMiddleware,*/ async (req, res) => {
-    console.log(req.params);
-    await Email.findByIdAndRemove(req.params.emailsId)
+    await Email.findOneAndDelete({ email: req.params.email })
       .then(() => {
         return res.status(200).send({ message: "Removido com sucesso" });
       })
