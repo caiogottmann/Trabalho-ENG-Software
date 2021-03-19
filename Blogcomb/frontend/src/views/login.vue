@@ -70,4 +70,12 @@ export default{
 }
 
 
+@media (max-width: 750px) {
+  #bloco{
+    margin-left: 10vw;
+    width: 80vw;
+    height: 60vh;
+  }
+}
+
 </style>
