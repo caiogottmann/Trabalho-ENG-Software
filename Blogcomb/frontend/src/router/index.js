@@ -6,6 +6,7 @@ import admin from "../views/Dashboard/index.vue";
 import post from "../views/Dashboard/post.vue";
 import criaPost from "../views/Dashboard/criaPost.vue";
 import email from "../views/Dashboard/email.vue";
+import login from "../views/login.vue";
 
 Vue.use(VueRouter);
 
@@ -14,6 +15,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: login,
   },
 
   {
