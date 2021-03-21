@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
             .compare(password, user.password)
             .then((result) => {
               if (result) {
-                const token = generateToken({ uid: user.id });
+                const token = generateToken({ uid: user.id, Admin: user.Admin });
                 return res.send({ token: token, tokenExpiration: '7d' });
               } else {
                 return res.status(400).send({ error: 'Senha inválida' });

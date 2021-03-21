@@ -23,6 +23,7 @@ export default (request, response, next) => {
         return response.status(401).send({ error: 'No valid token provided' });
       } else {
         request.uid = decoded.uid;
+        request.Admin=decoded.Admin;
         return next();
       }
     });
