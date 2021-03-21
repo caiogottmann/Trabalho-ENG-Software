@@ -39,6 +39,7 @@
                       icon="pencil-square"
                       class="icon"
                       scale="1.5"
+                      v-show="admin"
                     >
                     </b-icon>
                   </span>
@@ -48,6 +49,7 @@
                       icon="trash"
                       class="icon"
                       scale="1.5"
+                      v-show="admin"
                     >
                     </b-icon>
                   </span>
@@ -191,6 +193,8 @@
 import blueButton from "@/components/button";
 import emailAPI from "@/services/api/formEmail.js";
 import ModalFeedback from "@/components/modalFeedback.vue";
+import { GetCookie } from "@/utils/CookieUtil.js";
+import VueJwtDecode from "vue-jwt-decode";
 
 export default {
   components: { blueButton, ModalFeedback },
@@ -199,6 +203,7 @@ export default {
     return {
       showError: false,
       showSucess: false,
+      admin: false,
       change: {
         nome: "",
         email: "",
@@ -217,6 +222,7 @@ export default {
   },
   created() {
     this.updateAll();
+    this.admin = VueJwtDecode.decode(GetCookie("token")).Admin;
   },
   methods: {
     updateAll() {

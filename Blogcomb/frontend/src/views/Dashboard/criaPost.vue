@@ -12,7 +12,8 @@
             nomeInput="id"
             expRegular="^[0-9]*"
             :requerido="true"
-            :inalteravel="edit"
+            :inalteravel="true"
+            :value="Userid"
           />
           <questao
             class="question"
@@ -21,7 +22,7 @@
             expRegular="\w*"
             :requerido="true"
             inputPlaceHolder="Titulo do texto"
-            :maxCaracteres=30
+            :maxCaracteres="30"
           />
         </div>
         <div id="umaQuestao">
@@ -46,7 +47,7 @@
             expRegular="^[\w\u002C\s]*"
             :requerido="true"
             inputPlaceHolder="Rh, Ps, soft skills"
-            :maxCaracteres=20
+            :maxCaracteres="20"
           />
         </div>
         <div id="divbut">
@@ -73,6 +74,8 @@
 import Questao from "@/components/questao.vue";
 import criaPost from "@/services/api/criaPost.js";
 import ModalFeedback from "@/components/modalFeedback.vue";
+import VueJwtDecode from "vue-jwt-decode";
+import { GetCookie } from "@/utils/CookieUtil.js";
 
 export default {
   components: {
@@ -86,6 +89,7 @@ export default {
       showSpinner: false,
       id: this.$route.params.id,
       edit: false,
+      Userid: "",
     };
   },
   mounted() {
@@ -93,9 +97,10 @@ export default {
       this.edit = true;
       this.getPost();
     }
+    this.Userid = VueJwtDecode.decode(GetCookie("token")).uid;
   },
   methods: {
-    redirect(){
+    redirect() {
       this.$router.push({ path: "/post" });
     },
     dataAtualFormatada(d) {
@@ -110,16 +115,16 @@ export default {
     },
     getPost() {
       criaPost.getPost(this.id).then((res) => {
-         let inputes = document.getElementsByTagName("input");
-      inputes[0].value = res.data.creator;
-      inputes[1].value = res.data.titulo;
-      inputes[2].value = this.dataAtualFormatada(res.data.data);
-      var stringTags =""
-       res.data.tag.map((tags) => {
-            stringTags += tags + ", ";
-          });
-      inputes[3].value = stringTags.replace(/,\s*$/, "");
-      document.getElementsByTagName("textarea")[0].value = res.data.texto;
+        let inputes = document.getElementsByTagName("input");
+        inputes[0].value = res.data.creator;
+        inputes[1].value = res.data.titulo;
+        inputes[2].value = this.dataAtualFormatada(res.data.data);
+        var stringTags = "";
+        res.data.tag.map((tags) => {
+          stringTags += tags + ", ";
+        });
+        inputes[3].value = stringTags.replace(/,\s*$/, "");
+        document.getElementsByTagName("textarea")[0].value = res.data.texto;
       });
     },
     onSubmit() {

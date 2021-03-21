@@ -19,7 +19,7 @@
         <b-row>
           <b-col>
             <b-table
-            id="tabelaPosts"
+              id="tabelaPosts"
               striped
               responsive="lg"
               borderless
@@ -33,7 +33,7 @@
               empty-text="Nenhum Post"
             >
               <template class="a" #cell(actions)="data">
-                <b-row align-h="end">
+                <b-row align-h="end" v-show="checkVisibilidade(data.item)">
                   <span>
                     <b-icon
                       @click="changePost(data.item)"
@@ -60,7 +60,7 @@
       </div>
     </b-container>
     <modal-feedback
-      @fecha="showSucess = false;"
+      @fecha="showSucess = false"
       :certo="true"
       mensagem="Operacao efetuada com sucesso!"
       :ativado="showSucess"
@@ -202,6 +202,8 @@
 import blueButton from "@/components/button";
 import PostAPI from "@/services/api/criaPost";
 import ModalFeedback from "@/components/modalFeedback.vue";
+import VueJwtDecode from "vue-jwt-decode";
+import { GetCookie } from "@/utils/CookieUtil.js";
 export default {
   components: { blueButton, ModalFeedback },
 
@@ -227,6 +229,12 @@ export default {
     this.updateList();
   },
   methods: {
+    checkVisibilidade(item) {
+      return (
+        item.creator == VueJwtDecode.decode(GetCookie("token")).uid ||
+        VueJwtDecode.decode(GetCookie("token")).Admin
+      );
+    },
     updateList() {
       PostAPI.getPosts().then((res) => {
         res.data.map((a, index) => {
@@ -249,7 +257,7 @@ export default {
       PostAPI.deletePost(data.id)
         .then(() => {
           this.showSucess = true;
-          this.items.splice(data._id-1,1);
+          this.items.splice(data._id - 1, 1);
         })
         .catch(() => {
           this.showError = true;
