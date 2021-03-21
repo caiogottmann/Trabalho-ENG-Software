@@ -3,10 +3,6 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 
 const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     trim: true,
@@ -16,11 +12,11 @@ const UserSchema = new mongoose.Schema({
   },
   Admin: {
     type: Number,
-    default: 1,
+    default: 0,
   },
   password: {
     type: String,
-    required: false,
+    required: true,
     select: false,
   },
 });
