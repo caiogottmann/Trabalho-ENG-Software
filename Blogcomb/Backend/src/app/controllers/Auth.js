@@ -15,9 +15,9 @@ const generateToken = (params) => {
   return jwt.sign(params, authConfig.secret, { expiresIn: 86400 });
 };
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     var { email, password } = req.body;
-  
+
     if (!email) {
       return res.status(404).send({ error: 'Usuario não encontrado' });
     }
@@ -25,10 +25,9 @@ router.post('/login', (req, res) => {
       return res.status(400).send({ error: 'Senha inválida' });
     }
     email = email.toLowerCase();
-  
-    User.findOne({ email })
+    await User.findOne({ email })
       .select('+password')
-      .then((user) => {
+      .then((user) => {      
         if (user) {
           bcrypt
             .compare(password, user.password)
@@ -45,18 +44,21 @@ router.post('/login', (req, res) => {
               return res.status(500).send({ error: 'Erro interno' });
             });
         } else {
-          return res.status(404).send({ error: 'Usuario não encontrado' });
+          email = email.toLowerCase();
+          User.create({
+              email,
+              password
+            }).then((user) => {
+              const token = generateToken({ uid: user.id });
+              return res.send({ token: token, tokenExpiration: '7d' });
+            })
+            .catch((error) => {
+              console.error(error, 'Erro ao criar usuario');
+              return res.status(500).send({ error: 'Internal server error' });
+            });
         }
       })
       .catch((error) => {
-        email = email.toLowerCase();
-        User.create({
-            email,
-            password
-          }).then(() => {
-            const token = generateToken({ uid: user.id });
-            return res.send({ token: token, tokenExpiration: '7d' });
-          })
         return res.status(500).send({ error: 'Erro interno' });
       });
   });
