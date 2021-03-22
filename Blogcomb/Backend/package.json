@@ -8,7 +8,7 @@
     "start": "npm install --progress=false && npm run build && export NODE_ENV=production && node dist/index.js",
     "dev": "npm install --progress=false && npm run build && export NODE_ENV=development && node dist/index.js",
     "serve": "nodemon --exec babel-node src/server.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest"
   },
   "author": "Comb Júnior",
   "license": "ISC",

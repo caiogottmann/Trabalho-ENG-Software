@@ -19,7 +19,6 @@
             class="question"
             titulo="Título"
             nomeInput="titulo"
-            expRegular="\w*"
             :requerido="true"
             inputPlaceHolder="Titulo do texto"
             :maxCaracteres="30"
