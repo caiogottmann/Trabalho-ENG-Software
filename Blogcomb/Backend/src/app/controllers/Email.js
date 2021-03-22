@@ -1,6 +1,6 @@
 import { Router } from "express";
 import Email from "@/app/schemas/Email.js";
-//import authMiddleware from '@/app/middlewares/auth';
+import authMiddleware from '@/app/middlewares/auth';
 const router = new Router();
 
 router.post("/", async (req, res) => {
@@ -15,7 +15,11 @@ router.post("/", async (req, res) => {
   res.status(200).send("Email cadastrado com sucesso");
 });
 
-router.post("/edit", async (req, res) => {
+router.post("/edit", authMiddleware, async (req, res) => {
+
+  if(req.Admin!=1) {
+    return res.status(401).send('Sem autorização para realizar essa ação' );
+  }
   const { nome, email } = req.body;
   Email.findOne({ email: email }).then((user) => {
     if (user) {
@@ -38,9 +42,10 @@ router.post("/edit", async (req, res) => {
   });
 });
 
-router.get(
-  "/",
-  /*authMiddleware,*/ async (req, res) => {
+router.get(  "/", authMiddleware,  async (req, res) => {
+  if(req.Admin!=1) {
+    return res.status(401).send('Sem autorização para realizar essa ação' );
+  }
     var emailscompact = [];
     Email.find()
       .then((emails) => {
@@ -62,9 +67,11 @@ router.get(
   }
 );
 
-router.delete(
-  "/:email",
-  /*authMiddleware,*/ async (req, res) => {
+router.delete(  "/:email",  authMiddleware, async (req, res) => {
+
+  if(req.Admin!=1) {
+    return res.status(401).send('Sem autorização para realizar essa ação' );
+  }
     await Email.findOneAndDelete({ email: req.params.email })
       .then(() => {
         return res.status(200).send({ message: "Removido com sucesso" });
