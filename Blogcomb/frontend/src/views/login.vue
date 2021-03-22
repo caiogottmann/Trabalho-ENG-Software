@@ -70,14 +70,18 @@ export default {
   padding-top: 20px;
   font-family: Lato-Bold;
   width: 30vw;
-  height: 35vh;
   margin-left: 35vw;
   margin-top: 15vh;
+  padding-bottom: 10vh;
   background-color: #fefefe;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+
+  h3{
+  	margin-top: 5vh;
+  	margin-bottom: 5vh;
+  }
 
   form {
     display: flex;
