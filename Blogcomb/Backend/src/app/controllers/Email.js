@@ -42,7 +42,10 @@ router.post("/edit", authMiddleware, async (req, res) => {
   });
 });
 
-router.get(  "/",  async (req, res) => {
+router.get(  "/", authMiddleware,  async (req, res) => {
+  if(req.Admin!=1) {
+    return res.status(401).send('Sem autorização para realizar essa ação' );
+  }
     var emailscompact = [];
     Email.find()
       .then((emails) => {
